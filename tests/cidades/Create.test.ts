@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { testServer } from "./jest.setup";
+import { testServer } from "../jest.setup";
 
 
 
@@ -18,7 +18,7 @@ describe('Cidades - Create', () => {
     const respOne = await testServer.post('/cidades').send({nome : 'Ca'});
 
     expect(respOne.statusCode).toEqual(StatusCodes.BAD_REQUEST);
-    expect(respOne.body).toEqual('errors.body.nome');
+    expect(respOne.body).toHaveProperty('errors.body.nome');
   });
 
 
