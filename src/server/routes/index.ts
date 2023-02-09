@@ -3,7 +3,7 @@ import { cidadesController } from "../controllers";
 
 const router = Router();
 
-router.get("/", (_, res) => res.send("Olá"));
+router.get("/", (_, res) => res.send("Ok"));
 router.get("/cidades", cidadesController.getAllValidation, cidadesController.getAll);
 router.get("/cidades/:id", cidadesController.getByIdValidation, cidadesController.getById);
 
