@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
+import { CidadesProvider } from "../../database/providers/cidades";
 
 import { validation } from "../../shared/middleware";
 
@@ -14,19 +15,24 @@ export const getByIdValidation = validation((getSchema) => ({
   }))
 }));
 
-export const getById = async (req: Request<IParamProps, {}, {}, IParamProps>, res: Response) => {
-  const id = Number(req.params.id);
-
-  if (id === 999) {
+export const getById = async (req: Request<IParamProps>, res: Response) => {
+  if (!req.params.id) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       errors: {
-        default: "Registro não encontrado",
+        default: "O id não foi passado",
       },
     });
   }
 
-  return res.status(StatusCodes.OK).json({
-    id,
-    nome: "Caxias",
-  });
+  const result = await CidadesProvider.getById(req.params.id);
+
+  if (result instanceof Error) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: result.message,
+      },
+    });
+  }
+
+  return res.status(StatusCodes.OK).json(result);
 };

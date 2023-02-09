@@ -3,7 +3,7 @@ import { Knex } from "../../knex";
 import { ICidade } from "../../models";
 
 
-export const Create = async (cidade: Omit<ICidade, 'id'>): Promise<number | Error> => {
+export const create = async (cidade: Omit<ICidade, 'id'>): Promise<number | Error> => {
   try {
     const [result] = await Knex(ETableNames.cidade).insert(cidade).returning('id')
 
@@ -17,7 +17,7 @@ export const Create = async (cidade: Omit<ICidade, 'id'>): Promise<number | Erro
   } catch (error) {
     console.error(error);
     
-    return Error('Erro ao cadastrar o registro')
+    return new Error('Erro ao cadastrar o registro')
   }
 
 }

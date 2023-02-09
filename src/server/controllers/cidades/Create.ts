@@ -2,29 +2,33 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { ICidade } from "../../database/models";
-import { cidadesProvider } from "../../database/providers/cidades";
+import { CidadesProvider } from "../../database/providers/cidades";
 
 import { validation } from "../../shared/middleware";
 
-interface IBodyProps extends Omit<ICidade, 'id'> {
-}
+interface IBodyProps extends Omit<ICidade, "id"> {}
 
 export const createValidation = validation((getSchema) => ({
-  body: getSchema<IBodyProps>(yup.object().shape({
-    nome: yup.string().strict(true).required().min(3).max(150)
-  }))
+  body: getSchema<IBodyProps>(
+    yup.object().shape({
+      nome: yup.string().strict(true).required().min(3).max(150),
+    })
+  ),
 }));
 
-export const create = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
-const result = await cidadesProvider.Create(req.body)
+export const create = async (
+  req: Request<{}, {}, IBodyProps>,
+  res: Response
+) => {
+  const result = await CidadesProvider.create(req.body);
 
-if (result instanceof Error) {
-  res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-    errors: {
-      default: result.message
-    }
-  })
-}
+  if (result instanceof Error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message,
+      },
+    });
+  }
 
-  res.status(StatusCodes.CREATED).json(result)
+  res.status(StatusCodes.CREATED).json(result);
 };
