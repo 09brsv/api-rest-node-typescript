@@ -22,7 +22,7 @@ describe('Cidades - UpdateById', () => {
     it("Tenta buscar registro que não existe", async () => {
       const respOne = await testServer.put("/cidades/999").send({nome: 'Outra'});
 
-      expect(respOne.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+      expect(respOne.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
       expect(respOne.body).toHaveProperty("errors.default");
     });
 

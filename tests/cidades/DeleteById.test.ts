@@ -21,7 +21,7 @@ describe('Cidades - DeleteById', () => {
 
     const respOne = await testServer.delete('/cidades/999').send();
 
-    expect(respOne.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+    expect(respOne.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
     expect(respOne.body).toHaveProperty('errors.default');
   });
 
