@@ -1,30 +1,63 @@
-import { Router } from 'express';
+import { Router } from "express";
 
-import { CidadesController, PessoasController } from './../controllers';
-
-
+import { CitiessController, PersonsController } from "./../controllers";
 
 const router = Router();
 
-
-
-router.get('/', (_, res) => {
-  return res.send('Olá, DEV!');
+router.get("/", (_, res) => {
+  return res.send("Olá, DEV!");
 });
 
-router.get('/cidades', CidadesController.getAllValidation, CidadesController.getAll);
-router.post('/cidades', CidadesController.createValidation, CidadesController.create);
-router.get('/cidades/:id', CidadesController.getByIdValidation, CidadesController.getById);
-router.put('/cidades/:id', CidadesController.updateByIdValidation, CidadesController.updateById);
-router.delete('/cidades/:id', CidadesController.deleteByIdValidation, CidadesController.deleteById);
+router.get(
+  "/cidades",
+  CitiessController.getAllValidation,
+  CitiessController.getAll
+);
+router.post(
+  "/cidades",
+  CitiessController.createValidation,
+  CitiessController.create
+);
+router.get(
+  "/cidades/:id",
+  CitiessController.getByIdValidation,
+  CitiessController.getById
+);
+router.put(
+  "/cidades/:id",
+  CitiessController.updateByIdValidation,
+  CitiessController.updateById
+);
+router.delete(
+  "/cidades/:id",
+  CitiessController.deleteByIdValidation,
+  CitiessController.deleteById
+);
 
-
-router.get('/pessoas', PessoasController.getAllValidation, PessoasController.getAll);
-router.post('/pessoas', PessoasController.createValidation, PessoasController.create);
-router.get('/pessoas/:id', PessoasController.getByIdValidation, PessoasController.getById);
-router.put('/pessoas/:id', PessoasController.updateByIdValidation, PessoasController.updateById);
-router.delete('/pessoas/:id', PessoasController.deleteByIdValidation, PessoasController.deleteById);
-
-
+router.get(
+  "/pessoas",
+  PersonsController.getAllValidation,
+  PersonsController.getAll
+);
+router.post(
+  "/pessoas",
+  PersonsController.createValidation,
+  PersonsController.create
+);
+router.get(
+  "/pessoas/:id",
+  PersonsController.getByIdValidation,
+  PersonsController.getById
+);
+router.put(
+  "/pessoas/:id",
+  PersonsController.updateByIdValidation,
+  PersonsController.updateById
+);
+router.delete(
+  "/pessoas/:id",
+  PersonsController.deleteByIdValidation,
+  PersonsController.deleteById
+);
 
 export { router };

@@ -1,14 +1,16 @@
 import { StatusCodes } from "http-status-codes";
 import { testServer } from "../jest.setup";
 
-describe("People - getAll", () => {
+describe("Person - getAll", () => {
   let cidadeId: number | undefined;
   beforeAll(async () => {
-    const postResponse = await testServer.post('/cidades').send({nome: "Caratinga"})
-    cidadeId = postResponse.body
-  })
+    const postResponse = await testServer
+      .post("/cidades")
+      .send({ nome: "Caratinga" });
+    cidadeId = postResponse.body;
+  });
 
-  it("should return all people", async () => {
+  it("should return all Person", async () => {
     const postResponse = await testServer.post("/pessoas").send({
       nomeCompleto: "br bat or",
       cidadeId,

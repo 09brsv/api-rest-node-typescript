@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { testServer } from "../jest.setup";
 
-describe("People - getById", () => {
+describe("Person - getById", () => {
   let cidadeId: number | undefined;
   beforeAll(async () => {
     const postResponse = await testServer
@@ -10,14 +10,12 @@ describe("People - getById", () => {
     cidadeId = postResponse.body;
   });
 
-  it("should return a Pessoas object", async () => {
-    const postResponse = await testServer
-      .post("/pessoas")
-      .send({
-        nomeCompleto: "br bat or",
-        cidadeId,
-        email: "brbatgetbyid@gmail.com",
-      });
+  it("should return a Persons object", async () => {
+    const postResponse = await testServer.post("/pessoas").send({
+      nomeCompleto: "br bat or",
+      cidadeId,
+      email: "brbatgetbyid@gmail.com",
+    });
 
     expect(postResponse.statusCode).toEqual(StatusCodes.CREATED);
 

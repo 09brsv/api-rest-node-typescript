@@ -1,6 +1,6 @@
-export interface IPessoa {
-  id: number,
-  nomeCompleto: string,
-  cidadeId: number,
-  email: string
+export interface IPerson {
+  id: number;
+  nomeCompleto: string;
+  cidadeId: number;
+  email: string;
 }

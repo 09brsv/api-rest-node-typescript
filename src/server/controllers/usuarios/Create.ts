@@ -2,22 +2,24 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 
-import { CitiessProvider } from "../../database/providers/cidades";
+import { UsersProvider } from "../../database/providers/usuarios";
 import { validation } from "../../shared/middleware";
-import { ICity } from "../../database/models";
+import { IUser } from "../../database/models";
 
-interface IBodyProps extends Omit<ICity, "id"> {}
+interface IBodyProps extends Omit<IUser, "id"> {}
 
 export const createValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(
     yup.object().shape({
-      nome: yup.string().required().min(3).max(150),
+      nome: yup.string().strict().required().min(3),
+      email: yup.string().strict().required().min(3).email(),
+      senha: yup.number().required().moreThan(0).min(1),
     })
   ),
 }));
 
-export const create = async (req: Request<{}, {}, ICity>, res: Response) => {
-  const result = await CitiessProvider.create(req.body);
+export const create = async (req: Request<{}, {}, IUser>, res: Response) => {
+  const result = await UsersProvider.create(req.body);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
