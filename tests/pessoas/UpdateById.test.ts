@@ -15,7 +15,7 @@ describe("People - updateById", () => {
     const postResponse = await testServer.post("/pessoas").send({
       nomeCompleto: "br bat or",
       cidadeId,
-      email: "brbatupdatebyid@gmail.com",
+      email: "brbatcreate@gmail.com",
     });
 
     expect(postResponse.statusCode).toEqual(StatusCodes.CREATED);
@@ -23,22 +23,20 @@ describe("People - updateById", () => {
     const updateResponse = await testServer
       .put(`/pessoas/${postResponse.body}`)
       .send({
-        nomeCompleto: "br bat or update",
-        cidadeId
+        nomeCompleto: "br bat or update not found",
+        cidadeId,
+        email: "brbatupdatebyid@gmail.com"
       });
 
     expect(updateResponse.statusCode).toEqual(StatusCodes.NO_CONTENT);
-    expect(updateResponse.body).toHaveProperty(
-      "nomeCompleto",
-      "br bat or update"
-    );
 
   });
 
   it("should return an error if id is not found", async () => {
     const putResponse = await testServer.put("/pessoas/9999").send({
       nomeCompleto: "br bat or update",
-      cidadeId
+      cidadeId,
+      email: "brbatupdatebyidnotfound@gmail.com",
     });
 
     expect(putResponse.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
