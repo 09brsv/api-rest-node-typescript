@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { CitiessController, PersonsController } from "./../controllers";
+import { CitiessController, PersonsController, UsersController } from "./../controllers";
 
 const router = Router();
 
@@ -48,16 +48,27 @@ router.get(
   "/pessoas/:id",
   PersonsController.getByIdValidation,
   PersonsController.getById
-);
+  );
 router.put(
   "/pessoas/:id",
   PersonsController.updateByIdValidation,
   PersonsController.updateById
-);
-router.delete(
-  "/pessoas/:id",
-  PersonsController.deleteByIdValidation,
-  PersonsController.deleteById
-);
-
-export { router };
+  );
+  router.delete(
+    "/pessoas/:id",
+    PersonsController.deleteByIdValidation,
+    PersonsController.deleteById
+    );
+    
+    router.post(
+      "/cadastrar",
+      UsersController.sigUpValidation,
+      UsersController.sigUp
+    );
+    router.post(
+      "/entrar",
+      UsersController.sigInValidation,
+      UsersController.sigIn
+    );
+    export { router };
+    

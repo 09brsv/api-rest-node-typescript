@@ -8,17 +8,17 @@ import { IUser } from "../../database/models";
 
 interface IBodyProps extends Omit<IUser, "id"> {}
 
-export const createValidation = validation((getSchema) => ({
+export const sigUpValidation = validation((getSchema) => ({
   body: getSchema<IBodyProps>(
     yup.object().shape({
       nome: yup.string().strict().required().min(3),
-      email: yup.string().strict().required().min(3).email(),
-      senha: yup.number().required().moreThan(0).min(1),
+      email: yup.string().strict().required().min(5).email(),
+      senha: yup.string().strict().required().min(6)
     })
   ),
 }));
 
-export const create = async (req: Request<{}, {}, IUser>, res: Response) => {
+export const sigUp = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
   const result = await UsersProvider.create(req.body);
 
   if (result instanceof Error) {
